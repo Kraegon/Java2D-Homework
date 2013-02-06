@@ -6,7 +6,8 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 /**
- * 
+ * Square, center and turned. Exercise 2.3
+ * Simple. Effictive.      Brilliant.
  * @author Julian G. West
  */
 public class Panel1 extends JPanel{
