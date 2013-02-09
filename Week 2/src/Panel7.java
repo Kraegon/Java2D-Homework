@@ -5,9 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Path2D;
-import java.awt.geom.Ellipse2D.Double;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.*;
@@ -19,6 +16,7 @@ import javax.swing.*;
  */
 public class Panel7 extends JPanel{
 	int theta = 0;
+	Graphics2D g;
 	
 	public Panel7(){
 		Timer timer = new Timer(1000/60, new ActionListener() {			
@@ -42,19 +40,24 @@ public class Panel7 extends JPanel{
 	public void paintComponent(Graphics gTemp) {
 		
 		super.paintComponent(gTemp);
-	    Graphics2D g = (Graphics2D)gTemp;
+	    g = (Graphics2D)gTemp;
 	    g.translate(getWidth() / 2, getHeight() / 2); 
-	    g.rotate(Math.toRadians(theta));
-	        
-	    int radius = getHeight() / 2;
-	     
-	    Ellipse2D base = new Ellipse2D.Double(-radius, -radius, 2*radius, 2*radius);
-	    Rectangle2D supportRight  = new Rectangle2D.Double(0, -radius, radius, 2*radius);
+	    g.rotate(Math.toRadians(theta));	    
+	    makeOrb(200,200,0);
+	    makeOrb(200,-200,0);    
+	    theta++;
+	}
+	
+	public void makeOrb(int radius, int x, int y){
+		
+		//IT'S EASIER THAN IT LOOKS
+		Ellipse2D base = new Ellipse2D.Double(-radius + x, -radius + y, 2*radius, 2*radius);
+	    Rectangle2D supportRight  = new Rectangle2D.Double(x, -radius + y, radius, 2*radius);
 	    
-	    Ellipse2D top = new Ellipse2D.Double(-(0.5 * radius), -radius, radius, radius);
-	    Ellipse2D bottom = new Ellipse2D.Double(-(0.5 * radius), 0, radius,radius);
-	    Ellipse2D fillingTop = new Ellipse2D.Double(-(0.05 * radius), -((0.5 * radius) - (0.05 * radius)), (0.1 * radius), (0.1 * radius));
-	    Ellipse2D fillingBottom = new Ellipse2D.Double(-(0.05 * radius), ((0.5 * radius) - (0.05 * radius)), (0.1 * radius), (0.1 * radius));
+	    Ellipse2D top = new Ellipse2D.Double(-(0.5 * radius) + x, -radius + y, radius, radius);
+	    Ellipse2D bottom = new Ellipse2D.Double(-(0.5 * radius) + x, y, radius,radius);
+	    Ellipse2D fillingTop = new Ellipse2D.Double(-(0.05 * radius) + x, -((0.5 * radius) - (0.05 * radius)) + y, (0.1 * radius), (0.1 * radius));
+	    Ellipse2D fillingBottom = new Ellipse2D.Double(-(0.05 * radius) + x, ((0.5 * radius) - (0.05 * radius)) + y, (0.1 * radius), (0.1 * radius));
 	   
 	    Area rightRemains = new Area(base);
 	    rightRemains.intersect(new Area(supportRight));
@@ -69,9 +72,6 @@ public class Panel7 extends JPanel{
 	    g.fill(bottomArea);
 	    g.fill(fillingTop);
 	    g.fill(rightRemains);
-	    
-	    
-	    theta++;
 	}
 }
 
