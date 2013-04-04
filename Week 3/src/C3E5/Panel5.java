@@ -38,13 +38,12 @@ public class Panel5 extends JPanel{
 	
 	public void paintComponent(Graphics gTemp){
 		Graphics2D g = (Graphics2D) gTemp;
+		super.paintComponent(g);
 		int size = 150;
 		int x = (getWidth()/2) - (size/2);
 		int y = (getHeight()/2) - (size/2);
 		Area object = createShape(x,y,size);
-		//g.setPaint(new GradientPaint(new Point2D.Double(x,y), Color.BLACK, new Point2D.Double(x+size,y+size), Color.WHITE)); //Diagonal
 		g.setPaint(new GradientPaint(new Point2D.Double(x+(size/2),y), gradient1Chooser.getColor(), new Point2D.Double(x+(size/2),y+size), gradient2Chooser.getColor())); //Vertical
-		//g.setPaint(new GradientPaint(new Point2D.Double(x,y+(size/2)), Color.BLACK, new Point2D.Double(x+size,y+(size/2)), Color.WHITE)); //Horizontal
 		g.fill(object);
 	}
 	
